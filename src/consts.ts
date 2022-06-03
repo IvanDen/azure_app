@@ -1,0 +1,2 @@
+
+export const AZURE_STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=datafortests2;AccountKey=ku19GOIwMuzlDmAMByM2NjxlteYK0OhSQ5E5iksENzlNiDagLGExKdAugAo8ws8xbkUOffcdUKh4+ASts3m+sA==;EndpointSuffix=core.windows.net";

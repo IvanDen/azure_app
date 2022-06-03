@@ -1,0 +1,17 @@
+export interface ITableInstances {
+    CompletedTime: string,
+    CreatedTime: string,
+    CustomStatus: string,
+    ExecutionId: string,
+    Input: string,
+    LastUpdatedTime: string,
+    Name: string,
+    Output: string,
+    PartitionKey: string,
+    RowKey: string,
+    RuntimeStatus: string,
+    TaskHubName: string,
+    Timestamp: string,
+    Version: string,
+    odata: string,
+}
