@@ -3,15 +3,21 @@ export interface ITableInstances {
     CreatedTime: string,
     CustomStatus: string,
     ExecutionId: string,
-    Input: string,
-    LastUpdatedTime: string,
-    Name: string,
     Output: string,
     PartitionKey: string,
-    RowKey: string,
     RuntimeStatus: string,
-    TaskHubName: string,
     Timestamp: string,
-    Version: string,
-    odata: string,
+    AmountOfTime: string
 }
+
+export interface IHistoryTable {
+    Timestamp: string,
+    Input: string,
+    Details: string,
+    Reason: string,
+    Name: string,
+    PartitionKey: string,
+    RowKey: string,
+
+}
+

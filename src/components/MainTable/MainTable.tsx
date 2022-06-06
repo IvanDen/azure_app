@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {getTableHistory, getTableInstances} from "../../API/APImethods";
-import {ITableInstances} from "../../models/TableInstancesModel";
+import React, {useEffect, useState} from "react";
+import {getTableInstances} from "../../API/APImethods";
+import {ITableInstances} from "../../models/TableModel";
 import {Table} from "antd";
+import {getAmountOfTime} from "../helpers/helpers";
+import {columnsTablesInstances} from "./colums";
+import {ExpandedRowHistory} from "./ExpandedRowHistory";
 
 interface IMainTableProps {
-}
-
-interface IInstancesColumns {
-    title: string,
-    dataIndex: string,
-    key: string
 }
 
 interface IInstancesValue extends ITableInstances {
@@ -19,36 +16,35 @@ interface IInstancesValue extends ITableInstances {
 const MainTable: React.FC<IMainTableProps> = (props): JSX.Element => {
     const [stateInstances, setInstateInstances] = useState<ITableInstances[]>([]);
     useEffect(() => {
+
         const result = getTableInstances();
         result.then(data => setInstateInstances(data))
-    }, [])
 
-    const getColumns = (): IInstancesColumns[] => {
-        if (!stateInstances) return [];
-        const keysArr = Object.keys(stateInstances[0]);
-
-        const result: IInstancesColumns[] = keysArr?.map((key) => {
-            return {
-                title: key,
-                dataIndex: key,
-                key: key,
-            }
-        })
-        return result ?? [];
-    }
+    }, []);
 
     const getTablesData = (): IInstancesValue[] => {
         if (!stateInstances) return [];
+
         const result = stateInstances?.map((row) => {
-            return {...row, key: row.RowKey }
+
+            return {...row, key: row.ExecutionId, AmountOfTime: getAmountOfTime(row.CreatedTime, row.CompletedTime) }
         })
         return result ?? [];
     }
 
     return (
-        <div>
-            <Table dataSource={getTablesData()} columns={getColumns()} />;
-        </div>
+        <Table
+            className="components-table-demo-nested"
+            dataSource={getTablesData()}
+            columns={columnsTablesInstances}
+            expandable={
+            {
+                expandedRowRender: (record, index, indent, expanded) => {
+                    return <ExpandedRowHistory partitionKey={record.PartitionKey} />
+                }
+            }}
+            pagination={false}
+        />
     );
 };
 
