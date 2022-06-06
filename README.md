@@ -1,3 +1,14 @@
+
+This is an application for working with the Azure Blob Storage resource. 
+It is a frontend application that displays a table with data from database tables on the main page. And on the page with Load File it displays JSON file and its contents.
+
+The Shared Access Signature URL was used to gain access.
+
+To run the application, install all dependencies first.
+
+### `npm i`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
