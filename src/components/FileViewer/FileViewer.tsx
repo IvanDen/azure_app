@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getFile, getTableInstances} from "../../API/APImethods";
+import {getFile} from "../../API/APImethods";
 
 import ReactJson from 'react-json-view'
 import {parseJsonToObj} from "../helpers/helpers";

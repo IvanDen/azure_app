@@ -1,17 +1,12 @@
-import axios, {AxiosInstance, AxiosResponse, ResponseType} from "axios";
+import axios, {AxiosResponse, ResponseType} from "axios";
 import {
     BASE_BLOB_URL,
     BASE_TABLE_URL,
     URLForBlobs,
     NewURLForTablesInstances,
     URLTableHistory,
-    QueryStringURLForBlobs,
 } from "../StorageBlob/URLsConsts";
 import {IHistoryTable, ITableInstances} from "../models/TableModel";
-import { saveAs } from 'file-saver'
-
-// const datadd = new FormData()
-// export const azureServiceClient = main();
 
 export async function getAsyncData<T=any>(
     baseURL: string,
@@ -35,7 +30,6 @@ export async function getAsyncData<T=any>(
 
 export const getTableInstances = async (): Promise<ITableInstances[]> =>  {
     const tableInstances = await getAsyncData<{ value: ITableInstances[] }>(BASE_TABLE_URL, NewURLForTablesInstances);
-    // console.log("tableInstances === ", tableInstances)
     return tableInstances.data.value;
 }
 

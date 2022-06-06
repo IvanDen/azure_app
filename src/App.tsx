@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "antd/dist/antd.min.css";
-import "./App.css";
-
 import MainTable from "./components/MainTable/MainTable";
 import {Layout, Menu} from "antd";
 import {Content, Header} from "antd/es/layout/layout";
@@ -22,8 +20,6 @@ const items: ItemType[] = [
 
 function App() {
     const location = useLocation();
-    console.log("location.pathname",  location.pathname)
-
 
     return (
         <Layout>
@@ -52,8 +48,6 @@ function App() {
                 </Content>
             </Layout>
         </Layout>
-
-
     );
 }
 
