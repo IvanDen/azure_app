@@ -27,3 +27,18 @@ export const getAmountOfTime = (createdTime: string, completedTime: string): str
     }
     return amountOfTime;
 }
+
+export const parseJsonToObj = (jsonData: string): object => {
+    if (!jsonData) return {file: "Not json file"};
+    let result = {file: "Json file is note parse"};
+
+    try {
+        const parsedObj = JSON.parse(jsonData);
+        result = parsedObj;
+    }
+    catch (err) {
+        console.log(err)
+        throw Error("Json file is note parse");
+    }
+    return result;
+}

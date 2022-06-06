@@ -1,23 +1,31 @@
-import axios from "axios";
+import axios, {AxiosInstance, AxiosResponse, ResponseType} from "axios";
 import {
+    BASE_BLOB_URL,
     BASE_TABLE_URL,
-    newURLForTablesInstances,
+    URLForBlobs,
+    NewURLForTablesInstances,
     URLTableHistory,
+    QueryStringURLForBlobs,
 } from "../StorageBlob/URLsConsts";
 import {IHistoryTable, ITableInstances} from "../models/TableModel";
+import { saveAs } from 'file-saver'
 
+// const datadd = new FormData()
 // export const azureServiceClient = main();
 
-export const baseInstance = axios.create({
-    baseURL: BASE_TABLE_URL,
-    timeout: 1000,
-    headers: {'X-Custom-Header': 'foobar'}
-});
-
-export async function getAsyncData<T>(URL: string): Promise<T> {
+export async function getAsyncData<T=any>(
+    baseURL: string,
+    URL: string,
+    responseType?: ResponseType
+):  Promise<AxiosResponse<T, any>> {
     try {
-        const asyncResult = await baseInstance.get(URL);
-        return asyncResult.data.value;
+        const asyncResult = await axios.get(
+            baseURL + URL, {
+                responseType: responseType ? responseType : "json", // important?
+                timeout: 2000,
+            }
+        );
+        return asyncResult;
     }
     catch (error) {
         console.log(error);
@@ -26,11 +34,20 @@ export async function getAsyncData<T>(URL: string): Promise<T> {
 }
 
 export const getTableInstances = async (): Promise<ITableInstances[]> =>  {
-    const tableInstances = await getAsyncData<ITableInstances[]>(newURLForTablesInstances);
-    return tableInstances;
+    const tableInstances = await getAsyncData<{ value: ITableInstances[] }>(BASE_TABLE_URL, NewURLForTablesInstances);
+    // console.log("tableInstances === ", tableInstances)
+    return tableInstances.data.value;
 }
 
 export const getTableHistory= async (): Promise<IHistoryTable[]> =>  {
-    const tableHistory = await getAsyncData<IHistoryTable[]>(URLTableHistory);
-    return tableHistory;
+    const tableHistory = await getAsyncData<{ value: IHistoryTable[]}>(BASE_TABLE_URL, URLTableHistory);
+    return tableHistory.data.value;
+}
+
+export const getFile = async (): Promise<any> =>  {
+
+    const file = await getAsyncData<Blob>(BASE_BLOB_URL, URLForBlobs, "blob");
+    const text = await file.data.text();
+
+    return text;
 }

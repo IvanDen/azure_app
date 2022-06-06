@@ -1,5 +1,8 @@
 import {ColumnsType} from "antd/es/table";
 import {IHistoryTable, ITableInstances} from "../../models/TableModel";
+import ReactJson from "react-json-view";
+import {parseJsonToObj} from "../helpers/helpers";
+import CellJson from "../CellJson";
 
 export const columnsTablesInstances: ColumnsType<ITableInstances>  = [
     {
@@ -58,13 +61,14 @@ export const expandedColumnsHistory: ColumnsType<IHistoryTable> = [
         title: "Input",
         dataIndex: "Input",
         key: "Input",
-        ellipsis: true,
+        // ellipsis: true,
+        render: (value: string) => <CellJson value={value} />
     },
     {
         title: "Details",
         dataIndex: "Details",
         key: "Details",
-        ellipsis: true,
+        render: (value: string) => <CellJson value={value} />
     },
     {
         title: "Reason",

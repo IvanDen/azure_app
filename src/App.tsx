@@ -6,12 +6,13 @@ import MainTable from "./components/MainTable/MainTable";
 import {Layout, Menu} from "antd";
 import {Content, Header} from "antd/es/layout/layout";
 import {ItemType} from "antd/es/menu/hooks/useItems";
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, useLocation} from "react-router-dom";
+import FileViewer from "./components/FileViewer/FileViewer";
 
 const items: ItemType[] = [
     {
-        key: "instances",
-        label: <Link to="/instances">Instances Table</Link>,
+        key: "/",
+        label: <Link to="/">Instances Table</Link>,
     },
     {
         key: "file",
@@ -20,13 +21,18 @@ const items: ItemType[] = [
 ];
 
 function App() {
+    const location = useLocation();
+    console.log("location.pathname",  location.pathname)
+
+
     return (
         <Layout>
             <Header className="header">
                 <Menu
+                    activeKey={location.pathname}
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['instances']}
+                    defaultSelectedKeys={['/']}
                     items={items}
                 />
             </Header>
@@ -40,8 +46,8 @@ function App() {
                 }}
                     >
                     <Routes>
-                        <Route path='instances' element={<MainTable />} />
-                        <Route path='file' element={<div>File Loader</div>} />
+                        <Route path='/' element={<MainTable />} />
+                        <Route path='file' element={<FileViewer />} />
                     </Routes>
                 </Content>
             </Layout>
